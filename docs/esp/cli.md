@@ -1,5 +1,10 @@
 
-## Uso del CLI
+# Uso del CLI
+
+## 🌐 Language | Idioma
+**[English](../eng/cli.md)** | **[Español](../esp/cli.md)**
+
+---
 
 El script cli.py proporciona las siguientes funciones:
 

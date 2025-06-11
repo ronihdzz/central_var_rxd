@@ -1,5 +1,10 @@
 
-## Instalación de Dependencias
+# Instalación de Dependencias
+
+## 🌐 Language | Idioma
+**[English](../eng/installer.md)** | **[Español](../esp/installer.md)**
+
+---
 
 ### Instalación de Python y Click
 

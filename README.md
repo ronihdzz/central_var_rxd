@@ -1,84 +1,89 @@
 # Central Var RXD
 
-**Sistema de Gestión Segura de Variables de Entorno con Cifrado GPG**
+## 🌐 Language | Idioma
+**[English](README.md)** | **[Español](README.es.md)**
 
 ---
 
-## 📋 Tabla de Contenidos
-
-1. [¿Qué es Central Var RXD?](#-qué-es-central-var-rxd)
-2. [¿Qué Problemas Resuelve?](#-qué-problemas-resuelve)
-3. [Características Principales](#-características-principales)
-4. [Instalación Rápida](#-instalación-rápida)
-5. [Guía de Uso Básico](#-guía-de-uso-básico)
-6. [Estructura del Sistema](#️-estructura-del-sistema)
-7. [Componentes Técnicos](#-componentes-técnicos)
-8. [Ejemplo Completo: La Historia de Juanito](#-ejemplo-completo-la-historia-de-juanito)
-9. [Integración en Tu Proyecto](#-integración-en-tu-proyecto)
-10. [Documentación Técnica Completa](#-documentación-técnica-completa)
+**Secure Environment Variables Management System with GPG Encryption**
 
 ---
 
-## 🎯 ¿Qué es Central Var RXD?
+## 📋 Table of Contents
 
-Central Var RXD es una herramienta CLI (Command Line Interface) diseñada para gestionar variables de entorno de manera **segura y centralizada** en proyectos de desarrollo de software. Utiliza cifrado GPG (GNU Privacy Guard) para proteger información sensible como contraseñas, API keys, tokens y otras credenciales que no deben estar expuestas en texto plano.
-
----
-
-## 💡 ¿Qué Problemas Resuelve?
-
-### 1. **Seguridad de Credenciales**
-- **Problema**: Las variables de entorno contienen información sensible (passwords, API keys, tokens) que no pueden ser compartidas en texto plano.
-- **Solución**: Cifra automáticamente todos los archivos `.env` usando GPG con algoritmo AES256.
-
-### 2. **Gestión Multi-Ambiente**
-- **Problema**: Los proyectos modernos manejan múltiples ambientes (desarrollo, staging, producción) con diferentes configuraciones.
-- **Solución**: Maneja automáticamente archivos separados para cada ambiente (`.env.dev.gpg`, `.env.stg.gpg`, `.env.prd.gpg`).
+1. [What is Central Var RXD?](#-what-is-central-var-rxd)
+2. [What Problems Does It Solve?](#-what-problems-does-it-solve)
+3. [Key Features](#-key-features)
+4. [Quick Installation](#-quick-installation)
+5. [Basic Usage Guide](#-basic-usage-guide)
+6. [System Structure](#️-system-structure)
+7. [Technical Components](#-technical-components)
+8. [Complete Example: Johnny's Story](#-complete-example-johnnys-story)
+9. [Integration in Your Project](#-integration-in-your-project)
+10. [Complete Technical Documentation](#-complete-technical-documentation)
 
 ---
 
-## ⭐ Características Principales
+## 🎯 What is Central Var RXD?
 
-- 🔐 **Cifrado AES256**: Máxima seguridad con GPG
-- 🚀 **Ejecución Directa**: Variables solo en memoria, nunca en disco
-- 🎯 **Multi-Ambiente**: Desarrollo, staging y producción
-- 👥 **Colaboración Segura**: Comparte proyectos sin exponer credenciales
-- 🛡️ **Zero Archivos Temporales**: Sin rastros locales
-- 🔑 **Autenticación Requerida**: Frase secreta para cada operación
+Central Var RXD is a CLI (Command Line Interface) tool designed to manage environment variables in a **secure and centralized** way in software development projects. It uses GPG (GNU Privacy Guard) encryption to protect sensitive information such as passwords, API keys, tokens, and other credentials that should not be exposed in plain text.
 
 ---
 
-## ⚡ Instalación Rápida
+## 💡 What Problems Does It Solve?
+
+### 1. **Credential Security**
+- **Problem**: Environment variables contain sensitive information (passwords, API keys, tokens) that cannot be shared in plain text.
+- **Solution**: Automatically encrypts all `.env` files using GPG with AES256 algorithm.
+
+### 2. **Multi-Environment Management**
+- **Problem**: Modern projects handle multiple environments (development, staging, production) with different configurations.
+- **Solution**: Automatically manages separate files for each environment (`.env.dev.gpg`, `.env.stg.gpg`, `.env.prd.gpg`).
+
+---
+
+## ⭐ Key Features
+
+- 🔐 **AES256 Encryption**: Maximum security with GPG
+- 🚀 **Direct Execution**: Variables only in memory, never on disk
+- 🎯 **Multi-Environment**: Development, staging, and production
+- 👥 **Secure Collaboration**: Share projects without exposing credentials
+- 🛡️ **Zero Temporary Files**: No local traces
+- 🔑 **Authentication Required**: Passphrase for each operation
+
+---
+
+## ⚡ Quick Installation
 
 ```bash
-# 1. Verificar dependencias
+# 1. Check dependencies
 python3 --version  # Python 3.6+
 gpg --version      # GPG 2.0+
 
-# 2. Instalar Central Var RXD
-# (Ver documentación completa en docs/installer.md)
+# 2. Install Central Var RXD
+# (See complete documentation in docs/eng/installer.md)
 
-# 3. Verificar instalación
+# 3. Verify installation
 rxd_cli hello
 ```
 
-> **📖 Instalación Completa**: [docs/installer.md](docs/installer.md)
+> **📖 Complete Installation**: [docs/eng/installer.md](docs/eng/installer.md)
 
 ---
 
-## 🚀 Guía de Uso Básico
+## 🚀 Basic Usage Guide
 
-### Paso 1: Configurar Proyecto
+### Step 1: Configure Project
 ```bash
-# Copiar makefile a tu proyecto
-cp ~/.rxd/makefile tu-proyecto/
-cd tu-proyecto/
+# Copy makefile to your project
+cp ~/.rxd/makefile your-project/
+cd your-project/
 
-# Configurar organización
-sed -i 's/ORGANIZATION := jalo/ORGANIZATION := tu-org/' makefile
+# Configure organization
+sed -i 's/ORGANIZATION := jalo/ORGANIZATION := your-org/' makefile
 ```
 
-### Paso 2: Crear Template
+### Step 2: Create Template
 ```bash
 mkdir -p .envs/
 cat > .envs/.env.template << EOF
@@ -89,39 +94,39 @@ SECRET_TOKEN=
 EOF
 ```
 
-### Paso 3: Cifrar Variables
+### Step 3: Encrypt Variables
 ```bash
-# Crear archivo de variables
+# Create variables file
 echo "DATABASE_URL=postgresql://localhost/myapp" > .env.dev
 echo "API_KEY=dev-key-123" >> .env.dev
 
-# Cifrar archivo
+# Encrypt file
 make encrypt file=.env.dev
 
-# Eliminar original
+# Remove original
 rm .env.dev
 ```
 
-### Paso 4: Ejecutar con Seguridad
+### Step 4: Run Securely
 ```bash
 make run-secure
 ```
 
 ---
 
-## 🏗️ Estructura del Sistema
+## 🏗️ System Structure
 
-### **Directorio Central**
+### **Central Directory**
 ```
-~/.rxd/                                 # Directorio base del sistema
-├── cli.py                             # 🔧 CÓDIGO FUENTE del CLI
-└── [ORGANIZACIONES]/                  # Carpetas por organización/proyecto
-    ├── jalo/                          # Ejemplo: organización "jalo"
+~/.rxd/                                 # Base directory of the system
+├── cli.py                             # 🔧 SOURCE CODE of the CLI
+└── [ORGANIZACIONES]/                  # Folders by organization/project
+    ├── jalo/                          # Example: organization "jalo"
     │   └── .envs/
-    │       ├── .env.dev.gpg          # Variables desarrollo (CIFRADAS)
-    │       ├── .env.stg.gpg          # Variables staging (CIFRADAS)
-    │       └── .env.prd.gpg          # Variables producción (CIFRADAS)
-    ├── mi-empresa/                    # Ejemplo: organización "mi-empresa"
+    │       ├── .env.dev.gpg          # Development variables (ENCRYPTED)
+    │       ├── .env.stg.gpg          # Staging variables (ENCRYPTED)
+    │       └── .env.prd.gpg          # Production variables (ENCRYPTED)
+    ├── mi-empresa/                    # Example: organization "mi-empresa"
     │   └── .envs/
     │       ├── .env.dev.gpg
     │       ├── .env.stg.gpg
@@ -133,152 +138,152 @@ make run-secure
             └── .env.prd.gpg
 ```
 
-### **Estructura del Proyecto**
+### **Project Structure**
 ```
-Tu-Proyecto/                           # Cualquier proyecto tuyo
-├── makefile                          # 📋 SE COPIA - Solo cambiar ORGANIZATION
+Tu-Proyecto/                           # Any of your projects
+├── makefile                          # 📋 COPY - Only change ORGANIZATION
 ├── src/
-│   └── main.py                       # Tu aplicación que usa variables
+│   └── main.py                       # Your application that uses variables
 └── .envs/
-    └── .env.template                 # 🎯 CONFIGURACIÓN - Define qué necesitas
+    └── .env.template                 # 🎯 CONFIGURATION - Define what you need
 ```
 
 ---
 
-## 🔧 Componentes Técnicos
+## 🔧 Technical Components
 
-### **1. CLI Principal (`~/.rxd/cli.py`)**
-- **Ubicación**: `~/.rxd/cli.py`
-- **Función**: Código fuente del CLI que maneja cifrado/descifrado
-- **Se instala una vez** y sirve para todos los proyectos
+### **1. Main CLI (`~/.rxd/cli.py`)**
+- **Location**: `~/.rxd/cli.py`
+- **Function**: Source code of the CLI that handles encryption/decryption
+- **Installed once** and serves for all projects
 
-### **2. Makefile (Se copia a cada proyecto)**
-- **Se copia**: A la raíz de cada proyecto
-- **Configuración**: Solo cambiar `ORGANIZATION := tu-proyecto`
-- **Función**: Simplifica la ejecución con comandos como `make run-secure`
+### **2. Makefile (Copied to each project)**
+- **Copied**: To the root of each project
+- **Configuration**: Only change `ORGANIZATION := tu-proyecto`
+- **Function**: Simplifies execution with commands like `make run-secure`
 
-### **3. Template de Variables (`proyecto/.envs/.env.template`)**
-- **Ubicación**: En cada proyecto individual
-- **Función**: Define qué variables necesita ese proyecto específico
-- **Controla**: Ambiente por defecto y variables a inyectar
+### **3. Variable Template (`proyecto/.envs/.env.template`)**
+- **Location**: In each individual project
+- **Function**: Define what variables that project specifically needs
+- **Controls**: Default environment and variables to inject
 
-    El `.env.template` es el **archivo de configuración** que le dice al CLI:
-    1. **¿Qué ambiente usar por defecto?**
-    2. **¿Qué variables inyectar en tu código?**
+    The `.env.template` is the **configuration file** that tells the CLI:
+    1. **What default environment to use?**
+    2. **What variables to inject in your code?**
 
-    #### **Estructura del .env.template:**
+    #### **.env.template Structure:**
     ```bash
     # .envs/.env.template
-    ENVIRONMENT=          # ← No puede estar vacio
+    ENVIRONMENT=          # ← Cannot be empty
     ```
 
-    #### **Valores Disponibles para ENVIRONMENT:**
-    - **`development`** → Usa archivo `.env.dev.gpg`
-    - **`staging`** → Usa archivo `.env.stg.gpg`  
-    - **`production`** → Usa archivo `.env.prd.gpg`
+    #### **Available Values for ENVIRONMENT:**
+    - **`development`** → Use `.env.dev.gpg`
+    - **`staging`** → Use `.env.stg.gpg`  
+    - **`production`** → Use `.env.prd.gpg`
 
-    #### **⚠️ NOMENCLATURA DE ARCHIVOS (CRÍTICO)**
+    #### **⚠️ FILE NAMING (CRITICAL)**
     
-    **Archivos Originales (antes de cifrar):**
+    **Original Files (before encryption):**
     ```bash
-    .env.dev     # ← Archivo para DESARROLLO
-    .env.prd     # ← Archivo para PRODUCCIÓN  
-    .env.stg     # ← Archivo para STAGING
+    .env.dev     # ← File for DEVELOPMENT
+    .env.prd     # ← File for PRODUCTION  
+    .env.stg     # ← File for STAGING
     ```
     
-    **Archivos Cifrados (después de cifrar):**
+    **Encrypted Files (after encryption):**
     ```bash
-    .env.dev.gpg # ← Se genera automáticamente
-    .env.prd.gpg # ← Se genera automáticamente
-    .env.stg.gpg # ← Se genera automáticamente
+    .env.dev.gpg # ← Generated automatically
+    .env.prd.gpg # ← Generated automatically
+    .env.stg.gpg # ← Generated automatically
     ```
     
-    **¿Qué pasa si uso otros nombres?**
-    ❌ **NO FUNCIONARÁ** - El sistema busca exactamente estos nombres.
+    **What if I use other names?**
+    ❌ **WILL NOT WORK** - The system looks for exactly these names.
 
-### **Flujo de Trabajo Completo**
+### **Complete Workflow**
 
-1. **Instalación Única**: Se instala el CLI en `~/.rxd/cli.py` (una sola vez)
-2. **Por Proyecto**: Se copia `makefile` y se crea `.env.template`
-3. **Cifrado**: Variables se cifran en `~/.rxd/[ORGANIZATION]/.envs/`
-4. **Ejecución**: `make run-secure` descifra, inyecta y ejecuta
-5. **Limpieza**: Archivos temporales se eliminan automáticamente
+1. **Single Installation**: Install the CLI in `~/.rxd/cli.py` (once)
+2. **By Project**: Copy `makefile` and create `.env.template`
+3. **Encryption**: Variables are encrypted in `~/.rxd/[ORGANIZATION]/.envs/`
+4. **Execution**: `make run-secure` decrypts, injects, and executes
+5. **Cleanup**: Temporary files are automatically removed
 
 ---
 
-## 👨‍💻 Ejemplo Completo: La Historia de Juanito
+## 👨‍💻 Complete Example: Johnny's Story
 
-### **Situación:**
-Juanito tiene un proyecto llamado **"love_history"** con la estructura:
+### **Situation:**
+Johnny has a project called **"love_history"** with the structure:
 ```
 love_history/
 └── src/
-    └── main.py        # Usa variables AMOR_AGOSTO y AMOR_DICIEMBRE
+    └── main.py        # Uses AMOR_AGOSTO and AMOR_DICIEMBRE variables
 ```
 
-Su `main.py` contiene código que usa variables sensibles:
+His `main.py` contains code that uses sensitive variables:
 ```python
 import os
 amor_agosto = os.environ.get("AMOR_AGOSTO")
 amor_diciembre = os.environ.get("AMOR_DICIEMBRE")
-print(f"En agosto: {amor_agosto}")
-print(f"En diciembre: {amor_diciembre}")
+print(f"In August: {amor_agosto}")
+print(f"In December: {amor_diciembre}")
 ```
 
-### **Problema de Juanito:**
-- Tiene variables sensibles (nombres de personas 😅)
-- No quiere que esos nombres estén en texto plano en su computadora
-  porque es información muy confidencial
+### **Johnny's Problem:**
+- Has sensitive variables (person names 😅)
+- Doesn't want those names to be in plain text on his computer
+  because it's very confidential information
 
-### **Solución: Usar Central Var RXD**
+### **Solution: Use Central Var RXD**
 
-#### **Paso 1: Instalar el Sistema**
+#### **Step 1: Install the System**
 ```bash
-# Juanito instala el CLI una sola vez
-# (siguiendo docs/installer.md)
-rxd_cli hello  # ✅ Verificar instalación
+# Johnny installs the CLI once
+# (following docs/eng/installer.md)
+rxd_cli hello  # ✅ Verify installation
 ```
 
-#### **Paso 2: Copiar y Configurar Makefile**
+#### **Step 2: Copy and Configure Makefile**
 ```bash
 cd love_history/
-# Copia el makefile del sistema
+# Copy the system's makefile
 cp ~/.rxd/makefile .
 
-# Edita SOLO la organización
+# Edit ONLY the organization
 nano makefile
-# Cambia: ORGANIZATION := jalo
-# Por:    ORGANIZATION := love_history
+# Change: ORGANIZATION := jalo
+# To:    ORGANIZATION := love_history
 ```
 
-#### **Paso 3: Crear la carpeta .envs**
+#### **Step 3: Create the .envs Folder**
 ```bash
 mkdir -p .envs/
 ```
 
-#### **Paso 4: Cifrar su archivo de variables de entorno**
+#### **Step 4: Encrypt Your Environment Variables File**
 
 ```bash
-# Crea archivo con valores reales
+# Create file with actual values
 cat > .env.prd << EOF
 AMOR_AGOSTO=Fran
 AMOR_DICIEMBRE=Diego
 EOF
 
-# Cifra el archivo (¡aquí está la magia!)
+# Encrypt the file (here's the magic!)
 make encrypt file=.env.prd
-# Esto crea: ~/.rxd/love_history/.envs/.env.prd.gpg
+# This creates: ~/.rxd/love_history/.envs/.env.prd.gpg
 
-# Elimina el archivo original (por seguridad) 
-# ¡Para que nadie fisguee en su computadora los amores de su vida! 💕
+# Remove the original file (for security) 
+# ¡So no one fisguees on his computer his love life! 💕
 rm .env.prd
 ```
 
-#### **Paso 5: Crear el Template Mágico (.env.template)**
+#### **Step 5: Create the Magic Template (.env.template)**
 
-¡Ahora viene la parte importante! Juanito necesita crear el archivo que le dirá al sistema:
-- **¿Qué ambiente usar?** (development, staging, production)
-- **¿Qué variables inyectar?** (solo las que realmente necesita)
+¡Now comes the important part! Johnny needs to create the file that tells the system:
+- **What environment to use?** (development, staging, production)
+- **What variables to inject?** (only the ones he really needs)
 
 ```bash
 cat > .envs/.env.template << EOF
@@ -288,122 +293,122 @@ AMOR_DICIEMBRE=
 EOF
 ```
 
-**¿Qué hace cada línea?**
-- `ENVIRONMENT=production` → "Oye sistema, por defecto usa mi archivo `.env.prd.gpg`"
-- `AMOR_AGOSTO=` → "Necesito esta variable en mi código" (el valor viene del archivo cifrado)
-- `AMOR_DICIEMBRE=` → "También necesito esta otra variable"
+**What does each line do?**
+- `ENVIRONMENT=production` → "Hey system, by default use my `.env.prd.gpg`"
+- `AMOR_AGOSTO=` → "I need this variable in my code" (value comes from encrypted file)
+- `AMOR_DICIEMBRE=` → "I also need this other variable"
 
-💡 **Tip de Juanito**: El template es como una "lista de compras" - solo pides lo que realmente necesitas.
+💡 **Johnny's Tip**: The template is like a "shopping list" - only ask for what you really need.
 
-#### **Paso 6: ¡El Momento de la Verdad! 🎭**
+#### **Step 6: ¡The Moment of Truth! 🎭**
 
-Ahora Juanito puede ejecutar su proyecto sin que nadie vea sus secretos de amor:
+Now Johnny can run his project without anyone seeing his love secrets:
 
 ```bash
-# ¡Un solo comando y listo!
+# ¡One command and done!
 make run-secure
 ```
 
-### **🎬 ¿Qué pasa internamente cuando Juanito ejecuta `make run-secure`?**
+### **🎬 What happens internally when Johnny runs `make run-secure`?**
 
-**¡Es como una película de espías! 🕵️‍♂️**
+**¡It's like a spy movie! 🕵️‍♂️**
 
-1. **📋 Lectura del Template**: 
-   - Sistema: "A ver... leo `.envs/.env.template`"
-   - Sistema: "¡Ah! Juanito quiere `ENVIRONMENT=production`, `AMOR_AGOSTO` y `AMOR_DICIEMBRE`"
+1. **📋 Reading the Template**: 
+   - System: "Let's see... read `.envs/.env.template`"
+   - System: "Ah! Johnny wants `ENVIRONMENT=production`, `AMOR_AGOSTO` and `AMOR_DICIEMBRE`"
 
-2. **🔍 Búsqueda del Tesoro**:
-   - Sistema: "Como dice production, busco `~/.rxd/love_history/.envs/.env.prd.gpg`"
-   - Sistema: "¡Encontrado! 💎"
+2. **🔍 Searching for the Treasure**:
+   - System: "Since Johnny said production, I look for `~/.rxd/love_history/.envs/.env.prd.gpg`"
+   - System: "Found! 💎"
 
-3. **🔓 Descifrado Seguro** (¡GPG pide la frase secreta!):
-   - Sistema: "GPG, descifra esto por favor..."
-   - GPG: "¿Cuál es tu frase secreta, Juanito?" 🔑
-   - Juanito: *introduce su frase secreta*
-   - GPG: "Listo jefe, aquí tienes las variables"
+3. **🔓 Secure Decryption** (¡GPG asks for the passphrase!):
+   - System: "GPG, decrypt this please..."
+   - GPG: "What's your passphrase, Johnny?" 🔑
+   - Johnny: *enters his passphrase*
+   - GPG: "Done boss, here are your variables"
 
-4. **💉 Inyección Directa** (¡Sin archivos temporales!):
-   - Sistema: "Capturando variables: `AMOR_AGOSTO=Fran AMOR_DICIEMBRE=Diego`"
-   - Sistema: "Inyectando directamente en el entorno de ejecución..."
-   - Sistema: "¡Listo! Las variables están en memoria, no en archivos"
+4. **💉 Direct Injection** (¡No temporary files!):
+   - System: "Capturing variables: `AMOR_AGOSTO=Fran AMOR_DICIEMBRE=Diego`"
+   - System: "Injecting directly into the execution environment..."
+   - System: "Done! Variables are in memory, not in files"
 
-5. **🚀 Ejecución del Proyecto**:
-   - Sistema: "¡A correr! `python3 src/main.py`"
-   - Código de Juanito: "¡Genial! Ya tengo mis variables secretas"
+5. **🚀 Project Execution**:
+   - System: "Run! `python3 src/main.py`"
+   - Johnny's code: "Great! I have my secret variables"
 
-6. **🧹 Limpieza Automática** (¡Sin rastros!):
-   - Sistema: "El proceso terminó, liberando memoria..."
-   - Sistema: "¡Variables eliminadas del entorno!"
+6. **🧹 Automatic Cleanup** (¡No traces!):
+   - System: "Process finished, freeing memory..."
+   - System: "Variables removed from environment!"
 
-**🔒 Lo SÚPER genial**: ¡Las variables NUNCA se guardan en archivos locales! Solo existen en memoria durante la ejecución. ¡Máxima seguridad! 🛡️
+**🔒 Super Cool**: Variables NEVER go to local files! They only exist in memory during execution. 🛡️
 
-### **🔧 ¿Cómo funciona técnicamente el `make run-secure`?**
+### **🔧 How does the `make run-secure` work technically?**
 
 ```bash
-# 1. Captura las variables directamente del CLI
+# 1. Capture variables directly from CLI
 exported_vars=$$(rxd_cli process $(PROJECT_PATH) $(ORGANIZATION))
 
-# 2. Las inyecta en el entorno actual (¡sin archivos!)
+# 2. Inject them into the current environment (¡no files!)
 for var in $$exported_vars; do export $$var; done
 
-# 3. Ejecuta el programa con esas variables ya disponibles
+# 3. Execute the program with those variables already available
 bash -c "set -o allexport; python3 src/main.py"
 ```
 
-**🛡️ Seguridad nivel JAMES BOND**:
-- ✅ GPG solicita frase secreta para descifrar
-- ✅ Variables solo en memoria, nunca en disco
-- ✅ Se eliminan automáticamente al terminar el proceso
-- ✅ Zero archivos temporales en tu proyecto
+**🛡️ Super James Bond Security:**
+- ✅ GPG asks for passphrase to decrypt
+- ✅ Variables only in memory, never on disk
+- ✅ Automatically removed after process ends
+- ✅ Zero temporary files in your project
 
-### **Resultado Final para Juanito:**
+### **Final Result for Johnny:**
 ```
-love_history/                     # Proyecto de Juanito
+love_history/                     # Johnny's project
 ├── makefile                      # ORGANIZATION := love_history
 ├── src/
-│   └── main.py                   # Usa las variables
+│   └── main.py                   # Uses variables
 └── .envs/
-    └── .env.template             # Define qué variables necesita
+    └── .env.template             # Defines what variables it needs
 
-~/.rxd/                           # Sistema central
-├── cli.py                        # Código del CLI
-└── love_history/                 # Organización de Juanito
+~/.rxd/                           # Central system
+├── cli.py                        # CLI code
+└── love_history/                 # Johnny's organization
     └── .envs/
-        └── .env.prd.gpg         # Variables cifradas de forma segura
+        └── .env.prd.gpg         # Securely encrypted variables
 ```
 
-### **🏆 Ventajas para Juanito (y su vida amorosa):**
+### **🏆 Johnny's Advantages (and his love life):**
 
-- 🔐 **Seguridad EXTREMA**: Cifrado AES256 + frase secreta + variables solo en memoria. ¡Ni la NSA sabría de Fran y Diego!
-- 🚀 **Super Simplicidad**: Un solo `make run-secure`, introduce tu frase secreta y ¡listo!
-- 👥 **Colaboración Sin Vergüenza**: Puede subir el proyecto a GitHub sin que sus compañeros vean sus crushes
-- 🎭 **Multi-Ambiente**: Puede crear `.env.dev.gpg` para sus "amores de prueba" 😉  
-- 🎯 **Control Total**: Solo las variables del template se inyectan - nada de variables "sorpresa"
-- 💾 **Zero Archivos Locales**: Las variables NUNCA tocan el disco de su computadora
-- 🔑 **Autenticación Requerida**: GPG siempre pide su frase secreta personal
+- 🔐 **Extreme Security**: AES256 encryption + passphrase + variables only in memory. Even the NSA wouldn't know about Fran and Diego!
+- 🚀 **Super Simplicity**: One single `make run-secure`, enter your passphrase and ¡done!
+- 👥 **No Shame Collaboration**: Can upload project to GitHub without coworkers seeing his crushes
+- 🎭 **Multi-Environment**: Can create `.env.dev.gpg` for "test loves" 😉  
+- 🎯 **Total Control**: Only variables from template are injected - no "surprise" variables
+- 💾 **Zero Local Files**: Variables NEVER touch Johnny's computer disk
+- 🔑 **Authentication Required**: GPG always asks for his personal passphrase
 
-**💖 Juanito puede dormir tranquilo sabiendo que sus secretos están a salvo** 😴
+**💖 Johnny can sleep peacefully knowing his secrets are safe** 😴
 
 ---
 
-## 🚀 Integración en Tu Proyecto
+## 🚀 Integration in Your Project
 
-### Paso 1: Copiar el Makefile
+### Step 1: Copy the Makefile
 ```bash
-# Copia el makefile a tu proyecto
+# Copy the makefile to your project
 cp makefile tu-nuevo-proyecto/
 cd tu-nuevo-proyecto/
 
-# Edita la organización
+# Edit the organization
 sed -i 's/ORGANIZATION := jalo/ORGANIZATION := tu-organizacion/' makefile
 ```
 
-### Paso 2: Crear Template de Variables
+### Step 2: Create Variable Template
 ```bash
-# Crea la estructura
+# Create the structure
 mkdir -p .envs/
 
-# Define tus variables requeridas
+# Define your required variables
 cat > .envs/.env.template << EOF
 ENVIRONMENT=development
 DATABASE_URL=
@@ -412,15 +417,15 @@ SECRET_TOKEN=
 EOF
 ```
 
-### Paso 3: Cifrar Variables por Ambiente
+### Step 3: Encrypt Variables by Environment
 
-> **⚠️ IMPORTANTE**: Los archivos DEBEN tener nombres específicos para funcionar:
-> - **`.env.dev`** → Para desarrollo (genera `.env.dev.gpg`)
-> - **`.env.prd`** → Para producción (genera `.env.prd.gpg`) 
-> - **`.env.stg`** → Para staging (genera `.env.stg.gpg`)
+> **⚠️ IMPORTANT**: Files MUST have specific names to work:
+> - **`.env.dev`** → For development (generates `.env.dev.gpg`)
+> - **`.env.prd`** → For production (generates `.env.prd.gpg`) 
+> - **`.env.stg`** → For staging (generates `.env.stg.gpg`)
 
 ```bash
-# Crea archivos .env para cada ambiente (NOMBRES EXACTOS)
+# Create .env files for each environment (EXACT NAMES)
 echo "DATABASE_URL=postgresql://localhost/myapp_dev" > .env.dev
 echo "API_KEY=dev-api-key-123" >> .env.dev
 echo "SECRET_TOKEN=dev-secret-123" >> .env.dev
@@ -429,103 +434,103 @@ echo "DATABASE_URL=postgresql://prod-server/myapp" > .env.prd
 echo "API_KEY=prod-api-key-xyz" >> .env.prd
 echo "SECRET_TOKEN=prod-secret-xyz" >> .env.prd
 
-# Cifra para cada ambiente
-make encrypt file=.env.dev   # → Genera ~/.rxd/tu-org/.envs/.env.dev.gpg
-make encrypt file=.env.prd   # → Genera ~/.rxd/tu-org/.envs/.env.prd.gpg
+# Encrypt for each environment
+make encrypt file=.env.dev   # → Generates ~/.rxd/tu-org/.envs/.env.dev.gpg
+make encrypt file=.env.prd   # → Generates ~/.rxd/tu-org/.envs/.env.prd.gpg
 
-# Elimina archivos originales por seguridad
+# Remove original files for security
 rm .env.dev .env.prd
 ```
 
-### Paso 4: Usar en Tu Aplicación
+### Step 4: Use in Your Application
 ```bash
-# Ejecuta con variables automáticamente inyectadas
+# Run with automatically injected variables
 make run-secure
 
-# O para ambiente específico
+# Or for specific environment
 ENVIRONMENT=production make run-secure
 ```
 
-**¡Tu proyecto ya está integrado!** 🎉
+**¡Your project is integrated!** 🎉
 
 ---
 
-## 📖 Documentación Técnica Completa
+## 📖 Complete Technical Documentation
 
-### **Lectura Obligatoria**
+### **Mandatory Reading**
 
-La correcta implementación de Central Var RXD requiere la lectura completa de la documentación específica. Cada documento contiene información técnica crítica para el funcionamiento del sistema.
+Correct implementation of Central Var RXD requires complete reading of specific documentation. Each document contains critical technical information for system operation.
 
-### **1. [Instalación y Configuración](docs/installer.md)** - **PRIORITARIO**
+### **1. [Installation and Configuration](docs/eng/installer.md)** - **CRITICAL**
 
-**Importancia crítica:**
-- La instalación incorrecta de dependencias impide el funcionamiento del sistema
-- La configuración de `RXD_LOCAL_ENV_PATH` es fundamental para la localización de archivos
-- La configuración del PATH es necesaria para la ejecución de `rxd_cli`
+**Critical Importance:**
+- Incorrect dependency installation prevents system operation
+- `RXD_LOCAL_ENV_PATH` configuration is crucial for file localization
+- `PATH` configuration is necessary for `rxd_cli` execution
 
-**Contenido del documento:**
-- Instalación de dependencias: Python3, Click, GPG
-- Configuración de variables de entorno: `RXD_LOCAL_ENV_PATH`
-- Configuración del binario para ejecución en terminal
-- Procedimientos de verificación de instalación
+**Document Content:**
+- Dependency installation: Python3, Click, GPG
+- Environment variable configuration: `RXD_LOCAL_ENV_PATH`
+- Binary configuration for terminal execution
+- Installation verification procedures
 
-### **2. [Uso del CLI](docs/cli.md)** - **ESENCIAL**
+### **2. [CLI Usage](docs/eng/cli.md)** - **CRITICAL**
 
-**Importancia crítica:**
-- El desconocimiento de los comandos del CLI impide el uso del sistema
-- La sintaxis incorrecta de parámetros genera errores de ejecución
-- La comprensión de la estructura de comandos es esencial para el cifrado correcto
+**Critical Importance:**
+- Unfamiliar CLI commands prevent system use
+- Incorrect syntax of parameters generates execution errors
+- Understanding CLI command structure is essential for correct encryption
 
-**Contenido del documento:**
-- 5 comandos fundamentales: `encrypt`, `decrypt`, `process`, `hello`, `init`
-- Sintaxis específica: parámetros obligatorios y opcionales
-- Ejemplos de implementación para cada comando
-- Parámetros críticos: `--organization`, rutas, nombres de archivos
+**Document Content:**
+- 5 fundamental commands: `encrypt`, `decrypt`, `process`, `hello`, `init`
+- Specific syntax: mandatory and optional parameters
+- Example implementations for each command
+- Critical parameters: `--organization`, paths, file names
 
-### **3. [Uso del Makefile](docs/makefile.md)** - **FUNDAMENTAL**
+### **3. [Makefile Usage](docs/eng/makefile.md)** - **CRITICAL**
 
-**Importancia crítica:**
-- La comprensión de variables del Makefile es necesaria para la personalización
-- El conocimiento de comandos es esencial para la ejecución de proyectos
-- La configuración correcta previene errores de organización
+**Critical Importance:**
+- Understanding Makefile variables is necessary for customization
+- Command knowledge is essential for project execution
+- Correct configuration prevents organization errors
 
-**Contenido del documento:**
-- 4 variables críticas: `PROJECT_PATH`, `ORGANIZATION`, `GENERATE_FILE`, `RXD_DEBUG`
-- 3 comandos principales: `run-secure`, `encrypt`, `decrypt`
-- Configuración completa con ejemplos funcionales
-- Sintaxis específica para cada comando
+**Document Content:**
+- 4 critical variables: `PROJECT_PATH`, `ORGANIZATION`, `GENERATE_FILE`, `RXD_DEBUG`
+- 3 main commands: `run-secure`, `encrypt`, `decrypt`
+- Complete configuration with functional examples
+- Specific syntax for each command
 
-### **Metodología de Estudio Recomendada**
+### **Recommended Study Methodology**
 
-1. Leer cada documento completamente, línea por línea
-2. Ejecutar todos los comandos de ejemplo proporcionados
-3. Verificar el funcionamiento de cada paso antes de continuar
-4. Documentar parámetros importantes para referencia
-5. Probar comandos en un entorno de desarrollo seguro
+1. Read each document completely, line by line
+2. Execute all example commands provided
+3. Verify each step's functionality before continuing
+4. Document important parameters for reference
+5. Test commands in a secure development environment
 
-### **Garantía de Éxito**
-La lectura completa y comprensión de estos tres documentos garantiza el 99% de éxito en la implementación de Central Var RXD. La omisión de esta documentación resulta en una probabilidad equivalente de problemas técnicos.
+### **Success Guarantee**
+Complete reading and understanding these three documents guarantees 99% success in Central Var RXD implementation. Omission of this documentation results in equivalent probability of technical issues.
 
-### **Consecuencias de Omitir la Documentación**
+### **Consequences of Omitting Documentation**
 
-**Por omitir [Instalación y Configuración](docs/installer.md):**
-- Errores de "comando no encontrado"
-- Errores de "variable de entorno no definida"
-- Imposibilidad de localizar archivos cifrados
-- Tiempo significativo invertido en resolución de problemas
+**By omitting [Installation and Configuration](docs/eng/installer.md):**
+- "Command not found" errors
+- "Environment variable not defined" errors
+- Unable to localize encrypted files
+- Significant time spent resolving issues
 
-**Por omitir [Uso del CLI](docs/cli.md):**
-- Cifrado de archivos en ubicaciones incorrectas
-- Imposibilidad de descifrar archivos propios
-- Uso incorrecto de organizaciones
-- Errores de ejecución con mensajes confusos
+**By omitting [CLI Usage](docs/eng/cli.md):**
+- Encrypting files in incorrect locations
+- Unable to decrypt own files
+- Incorrect organization use
+- Execution errors with confusing messages
 
-**Por omitir [Uso del Makefile](docs/makefile.md):**
-- Configuración incorrecta de organización
-- Fallos en comandos `make`
-- Imposibilidad de ejecutar proyectos de forma segura
-- Configuración incorrecta de variables de debug
+**By omitting [Makefile Usage](docs/eng/makefile.md):**
+- Incorrect organization configuration
+- `make` command failures
+- Unable to execute projects securely
+- Incorrect debug variable configuration
 
 ---
 
-**Central Var RXD** - *Gestión segura y eficiente de variables de entorno para equipos de desarrollo*
+**Central Var RXD** - *Secure and efficient environment variable management for development teams*
